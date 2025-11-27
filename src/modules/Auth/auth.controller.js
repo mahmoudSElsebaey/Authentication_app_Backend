@@ -2,6 +2,7 @@ import jwt from "jsonwebtoken";
 import User from "../../../config/db/models/User.model.js";
 import bcrypt from "bcrypt";
 
+// _______________________________________________ Register __________________________________________
 export const register = async (req, res) => {
   const { fname, lname, email, password, age } = req.body;
 
@@ -59,7 +60,7 @@ export const register = async (req, res) => {
     age: user.age,
   });
 };
-
+// _______________________________________________ Login __________________________________________
 export const login = async (req, res) => {
   const { email, password } = req.body;
 
@@ -112,8 +113,8 @@ export const login = async (req, res) => {
     password: user.password,
   });
 };
-
-// Refresh access token using refresh token stored in cookie
+// _______________________________________________ Refresh __________________________________________
+/* Refresh access token using refresh token stored in cookie*/
 export const refresh = async (req, res) => {
   const cookies = req.cookies;
   if (!cookies?.jwt) return res.status(401).json({ message: "Unauthorized" }); // Unauthorized
@@ -139,7 +140,8 @@ export const refresh = async (req, res) => {
       res.status(200).json({ accessToken }); // Send new access token to client
     }
   );
-};
+}
+// _______________________________________________ Logout __________________________________________
 
 export const logout = (req, res) => {
   const cookies = req.cookies;
