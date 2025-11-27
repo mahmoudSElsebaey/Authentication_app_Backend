@@ -14,10 +14,10 @@ import { allowedOrigins } from "./allowedOrigins.js";
 
 export const corsOptions = {
   origin: (origin, callback) => {
+    console.log("Origin:", origin);  
     if (allowedOrigins.includes(origin) || !origin) {
       callback(null, true);
     } else {
-      console.log("❌ CORS BLOCKED ORIGIN:", origin);
       callback(new Error("Not allowed by CORS"));
     }
   },
