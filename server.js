@@ -20,7 +20,7 @@ const app = express();
 connectionDB();
 
 // ________________________________ CORS configuration and middleware setup ________________________________
-app.use(cors(corsOptions));
+app.options("*", cors(corsOptions));
 app.use(cookieParser()); 
 app.use(express.json());
 
