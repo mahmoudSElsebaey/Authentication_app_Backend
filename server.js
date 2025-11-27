@@ -21,7 +21,7 @@ connectionDB();
 
 // ________________________________ CORS configuration and middleware setup ________________________________
 app.use(cors(corsOptions));
-app.options("*", cors(corsOptions)); // Enable pre-flight for all routes
+app.options(/.*/, cors(corsOptions)); // Enable pre-flight for all routes 
 
 // ________________________________ Middleware setup ________________________________
 app.use(cookieParser()); 
