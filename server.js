@@ -3,7 +3,7 @@ import { connectionDB } from "./config/db/connectionDB.js";
 import { config } from "dotenv";
 import mongoose from "mongoose";
 import cors from "cors";
-import { corsOptions } from "./config/corsOptions.js";
+// import { corsOptions } from "./config/corsOptions.js";
 import cookieParser from "cookie-parser";
 import * as routes from "./src/Routes/Root.route.js";
 import path from "path";
@@ -20,8 +20,17 @@ const app = express();
 connectionDB();
 
 // ________________________________ CORS configuration and middleware setup ________________________________
-app.use(cors(corsOptions));
-app.options(/.*/, cors(corsOptions)); // Enable pre-flight for all routes 
+// app.use(cors(corsOptions));
+// app.options("*", cors(corsOptions)); // Enable pre-flight for all routes 
+
+app.use(
+  cors({
+    origin: "https://authentication-app-frontend-seven.vercel.app",
+    credentials: true,
+  })
+);
+
+app.options("*", cors());
 
 // ________________________________ Middleware setup ________________________________
 app.use(cookieParser()); 
