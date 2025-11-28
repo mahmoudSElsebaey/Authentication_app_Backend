@@ -18,22 +18,18 @@ const app = express();
 
 //________________________________ Connect to MongoDB ________________________________
 connectionDB();
-
+// ________________________________ Middleware setup ________________________________
+app.use(cookieParser());
+app.use(express.json());
 // ________________________________ CORS configuration and middleware setup ________________________________
-const corsOptions= 
-  {
+const corsOptions = {
   origin: "https://authentication-app-frontend-seven.vercel.app",
   credentials: true,
   optionsSuccessStatus: 200,
- 
-}
+};
 
 app.use(cors(corsOptions));
-// app.options("*", cors(corsOptions)); // Enable pre-flight for all routes 
- 
-// ________________________________ Middleware setup ________________________________
-app.use(cookieParser()); 
-app.use(express.json());
+app.options("*", cors(corsOptions)); // Enable pre-flight for all routes
 
 // ________________________________ Serve static files from the "public" directory ________________________________
 app.use(express.static(path.join(__dirname, "public")));
