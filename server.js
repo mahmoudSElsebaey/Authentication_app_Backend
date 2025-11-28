@@ -1,9 +1,9 @@
-import express, { json, urlencoded } from "express";
+import express from "express";
 import { connectionDB } from "./config/db/connectionDB.js";
 import { config } from "dotenv";
 import mongoose from "mongoose";
 import cors from "cors";
-import { corsOptions } from "./config/corsOptions.js";
+// import { corsOptions } from "./config/corsOptions.js";
 import cookieParser from "cookie-parser";
 import * as routes from "./src/Routes/Root.route.js";
 import path from "path";
@@ -20,6 +20,14 @@ const app = express();
 connectionDB();
 
 // ________________________________ CORS configuration and middleware setup ________________________________
+const corsOptions= 
+  {
+  origin: "https://authentication-app-frontend-seven.vercel.app",
+  credentials: true,
+  optionsSuccessStatus: 200,
+ 
+}
+
 app.use(cors(corsOptions));
 // app.options("*", cors(corsOptions)); // Enable pre-flight for all routes 
  
