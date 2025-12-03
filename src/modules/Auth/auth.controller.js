@@ -95,7 +95,7 @@ export const login = async (req, res) => {
   );
   res.cookie("jwt", refreshToken, {
     httpOnly: true, //
-    secure: false, // https
+    secure: true, // https
     sameSite: "None", // cross-site
     maxAge: 1000 * 60 * 60 * 24 * 7, // ==> 7 days as like refresh token
   });
