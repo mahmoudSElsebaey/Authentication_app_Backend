@@ -63,23 +63,18 @@ export const register = async (req, res) => {
 // _______________________________________________ Login __________________________________________
 export const login = async (req, res) => {
   const { email, password } = req.body;
-
   if (!email || !password) {
     res.status(404).json({ message: "All fields are required" });
   }
-
   const user = await User.findOne({ email });
-
   if (!user) {
     return res.status(400).json({ message: "User not found" });
   }
-
   const isPasswordMatch = await bcrypt.compare(password, user.password);
 
   if (!isPasswordMatch) {
     return res.status(401).json({ message: "Invalid Password" });
   }
-
   const token = jwt.sign(
     {
       userInfo: {
@@ -89,7 +84,6 @@ export const login = async (req, res) => {
     process.env.ACCESS_TOKEN_SECRET_KEY,
     { expiresIn: "15m" }
   );
-
   const refreshToken = jwt.sign(
     {
       userInfo: {
@@ -99,7 +93,6 @@ export const login = async (req, res) => {
     process.env.REFRESH_TOKEN_SECRET_KEY,
     { expiresIn: "7d" }
   );
-
   res.cookie("jwt", refreshToken, {
     httpOnly: true, //
     secure: false, // https
@@ -140,7 +133,7 @@ export const refresh = async (req, res) => {
       res.status(200).json({ accessToken }); // Send new access token to client
     }
   );
-}
+};
 // _______________________________________________ Logout __________________________________________
 
 export const logout = (req, res) => {

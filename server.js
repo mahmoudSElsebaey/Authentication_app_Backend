@@ -22,14 +22,8 @@ connectionDB();
 app.use(cookieParser());
 app.use(express.json());
 // ________________________________ CORS configuration and middleware setup ________________________________
-const corsOptions = {
-  origin: process.env.FRONTEND_URL_VERCEL || "http://localhost:3000",
-  credentials: true,
-  optionsSuccessStatus: 200,
-};
-
-app.use(cors(corsOptions));
-app.options("*", cors(corsOptions)); // Enable pre-flight for all routes
+app.use(cors(corsOptions)); // CORS for all routes
+// app.options("*", cors(corsOptions)); // Handle preflight requests
 
 // ________________________________ Serve static files from the "public" directory ________________________________
 app.use(express.static(path.join(__dirname, "public")));
